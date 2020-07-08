@@ -12,7 +12,7 @@ namespace SwaggerApiVersioning.Controllers
 {
     [Route("api/v{version:ApiVersion}/[controller]")]
     [ApiVersion("1")]
-    //[ApiExplorerSettings(GroupName = "v1")]
+    [ApiExplorerSettings(GroupName = "v1")]
     [ApiController]
     public class StudentController : ControllerBase
     {
