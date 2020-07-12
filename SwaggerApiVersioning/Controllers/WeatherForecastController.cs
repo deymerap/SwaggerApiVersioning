@@ -8,7 +8,9 @@ using Microsoft.Extensions.Logging;
 namespace SwaggerApiVersioning.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/v{version:ApiVersion}/[controller]")]
+    [ApiVersion("3")]
+    [ApiExplorerSettings(GroupName = "v3")]
     public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
@@ -23,7 +25,7 @@ namespace SwaggerApiVersioning.Controllers
             _logger = logger;
         }
 
-        [HttpGet]
+        [HttpGet("{format}"), FormatFilter]
         public IEnumerable<WeatherForecast> Get()
         {
             var rng = new Random();

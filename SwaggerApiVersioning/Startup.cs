@@ -32,7 +32,8 @@ namespace SwaggerApiVersioning
             services.AddTransient<ITeacherService, TeacherService>();
             services.AddTransient<IStudentService, StudentService>();
 
-            services.AddControllers();
+            services.AddControllers().
+                AddXmlDataContractSerializerFormatters();
             services.AddMvcCore();
             //services.AddMvc();
             services.AddApiVersioning(config => 
@@ -55,6 +56,14 @@ namespace SwaggerApiVersioning
                     Title = "API v2 Titulo",
                     Description = "Descripcion API"
                 });
+
+                config.SwaggerDoc("v3", new OpenApiInfo
+                {
+                    Version = "v3",
+                    Title = "API v3 Titulo",
+                    Description = "Descripcion API"
+                });
+
                 config.ResolveConflictingActions(a=> a.First());
                 config.OperationFilter<RemoveVersionFromParameter>();
                 config.DocumentFilter<ReplaceVersionWithExactValueInPath>();
@@ -75,6 +84,7 @@ namespace SwaggerApiVersioning
             {
                 config.SwaggerEndpoint($"/swagger/v1/swagger.json" ,"API v1");
                 config.SwaggerEndpoint($"/swagger/v2/swagger.json" ,"API v2");
+                config.SwaggerEndpoint($"/swagger/v3/swagger.json" ,"API v3");
             });
 
 
